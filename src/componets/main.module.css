@@ -113,13 +113,13 @@ html, body {
     text-align: center;
   }
   
-  .flowPlot {
+  .airTempPlot {
     position: absolute;
     top: 450px;
     left: 675px;
   }
   
-  .flowHeading {
+  .airTempHeading {
     text-align: center;
   }
   

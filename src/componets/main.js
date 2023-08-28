@@ -32,21 +32,21 @@ export const Main = () => {
   const [pHList, setpH]               = useState([]);
   const [ECList, setEC]               = useState([]);
   const [tempList, setTemp]           = useState([]);
-  const [flowList, setFlow]           = useState([]);
+  const [airTempList, setFlow]           = useState([]);
   const [lightList, setLight]         = useState([]);
   const [hummidityList, setHummidity] = useState([]);
 
   const pHRef   = collection(db, "pH");
   const ECRef   = collection(db, "EC");
   const tempRef = collection(db, "temp");
-  const flowRef = collection(db, "flow");
+  const airTempRef = collection(db, "AirTemp");
   const lightRef = collection(db, "light");
-  const hummidityRef = collection(db, "hummidity");
+  const hummidityRef = collection(db, "Hummidity");
 
   const [unsubscribePH, setUnsubscribePH]               = useState(null);
   const [unsubscribeEC, setUnsubscribeEC]               = useState(null); 
   const [unsubscribeTemp, setUnsubscribeTemp]           = useState(null);
-  const [unsubscribeFlow, setUnsubscribeFlow]           = useState(null);
+  const [unsubscribeairTemp, setUnsubscribeairTemp]     = useState(null);
   const [unsubscribeLight, setUnsubscribeLight]         = useState(null);
   const [unsubscribeHummidity, setUnsubscribeHummidity] = useState(null);
 
@@ -92,14 +92,14 @@ export const Main = () => {
   
         })
         
-        const qFlow = query(flowRef, orderBy('time'));
-        const unsubscribeFlow= onSnapshot(qFlow, querySnapshot => {
+        const qairTemp = query(airTempRef, orderBy('time'));
+        const unsubscribeairTemp= onSnapshot(qairTemp, querySnapshot => {
             // Map results to an array of li elements
 
-            const flowData = querySnapshot.docs.map(doc => { 
+            const airTempData = querySnapshot.docs.map(doc => { 
               return doc.data()});
 
-            setFlow(flowData);
+            setFlow(airTempData);
         })
         
         const qLight = query(lightRef, orderBy('time'));
@@ -126,7 +126,7 @@ export const Main = () => {
         setUnsubscribePH(() => unsubscribePH);
         setUnsubscribeEC(() =>unsubscribeEC);
         setUnsubscribeTemp(() => unsubscribeTemp);
-        setUnsubscribeFlow(() =>unsubscribeFlow);
+        setUnsubscribeairTemp(() =>unsubscribeairTemp);
         setUnsubscribeLight(() => unsubscribeLight);
         setUnsubscribeHummidity(() =>unsubscribeHummidity);
 
@@ -148,7 +148,7 @@ export const Main = () => {
      unsubscribeEC();
      unsubscribePH();
      unsubscribeTemp();
-     unsubscribeFlow();
+     unsubscribeairTemp();
      unsubscribeLight();
      unsubscribeHummidity();
      console.log("unsubbed");
@@ -192,12 +192,12 @@ export const Main = () => {
            <Tooltip />
            </LineChart>
           </div>
-          <div className = {styles.flowPlot}>
-            <h1 className = {styles.flowHeading}>Flow</h1>
-           <LineChart  width={600} height={300} data={flowList}>
+          <div className = {styles.airTempPlot}>
+            <h1 className = {styles.airTempHeading}>Air Temperature</h1>
+           <LineChart  width={600} height={300} data={airTempList}>
            <Line type="monotone" dataKey="value" stroke="#2196F3" strokeWidth={3} />
            <XAxis dataKey="time" label={{ value: 'time', position: 'insideBottom',offset: -5  }} />
-           <YAxis datakey="value"label={{ value: 'Flow Rate', angle: -90, position: 'insideLeft',offset:5}} />
+           <YAxis datakey="value"label={{ value: 'airTemp', angle: -90, position: 'insideLeft',offset:5}} />
            <Tooltip />
            </LineChart>
           </div>

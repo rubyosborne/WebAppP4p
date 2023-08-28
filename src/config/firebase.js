@@ -6,13 +6,13 @@ import {getFirestore} from 'firebase/firestore';
 import {getStorage} from 'firebase/storage'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDKORXSD5mG4Oje2mWgobCSYO5H969yxck",
-  authDomain: "reactwebapp-4e101.firebaseapp.com",
-  projectId: "reactwebapp-4e101",
-  storageBucket: "reactwebapp-4e101.appspot.com",
-  messagingSenderId: "604882833083",
-  appId: "1:604882833083:web:69b9b82b24f8b932c3639e",
-  measurementId: "G-ZB0XJQQJ8K"
+  apiKey: "AIzaSyD7xKhezs755gkaAa55BjG9pGTWg0u1oE8",
+  authDomain: "tpil239p4p2023.firebaseapp.com",
+  projectId: "tpil239p4p2023",
+  storageBucket: "tpil239p4p2023.appspot.com",
+  messagingSenderId: "208731437183",
+  appId: "1:208731437183:web:f99c05d8a6f3c22930674a",
+  measurementId: "G-T98C9Y4K3D"
 };
 
 // Initialize Firebase
