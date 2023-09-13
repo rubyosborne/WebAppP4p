@@ -1,0 +1,44 @@
+.aboutus-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.aboutus-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3f51b5;  /* This is the default AppBar color from Material-UI */
+    padding: 10px 0;
+}
+
+.aboutus-header h2 {
+    flex: 1;
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+}
+
+.aboutus-photos {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.aboutus-photos img {
+    margin: 0 10px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.aboutus-description h2 {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.aboutus-description p {
+    text-align: center;
+    margin-top: 20px;
+}
