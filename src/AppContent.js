@@ -13,7 +13,7 @@ function AppContent({ currentUser }) {
       <>
         {location.pathname !== "/auth" && <Navbar />}
         <Routes>
-          <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/" element={<Navigate to="/auth" />} />
           <Route path="/home" element={<Home />} />
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/main" element={currentUser ? <Main /> : <Navigate to="/auth" />} />
