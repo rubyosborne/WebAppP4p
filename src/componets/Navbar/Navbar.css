@@ -2,28 +2,43 @@
     background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
     height: 80px;
     display: flex;
+    font-family: 'Montserrat', sans-serif !important; /* This sets the font for the entire navbar */
     font-size: 1.2rem;
     position: sticky;
     top: 0;
     z-index: 999;
   }
+
   .navbar-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;;  /* This will push the items to the edges */
+
     height: 80px;
     max-width: 1500px;
-  }
-  
+    width: 100%; /* Ensure it takes the full width */
+    padding: 0 20px; /* Add some padding to the sides */
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+.menu-items-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    
+}
+
+
   .navbar-logo {
     color: #fff;
+    font-family: 'Montserrat', sans-serif; /* This sets the font for the entire navbar */
     justify-self: start;
-    margin-left: 10vw;
+    margin-left: 0;
     cursor: pointer;
     text-decoration: none;
     font-size: 2rem;
     display: flex;
     align-items: center;
+    font-weight: bold;
   }
   .fas-wrench {
     margin-left: 0.5rem;
@@ -33,31 +48,27 @@
   .nav-menu {
     display: grid;
     grid-template-columns: repeat(4, auto);
-    grid-gap: 10px;
+    grid-gap: 50px;
     list-style: none;
     text-align: center;
     width: 60vw;
     justify-content: end;
-    margin-right: 2rem;
-  }
-  
-  .nav-item {
-    height: 80px;
+    margin-right: 0.1rem;
   }
   
   .nav-links {
     padding: 10px;
+    font-family: 'Montserrat', sans-serif !important;
     border-radius: 8px;
     color: #fff;
     display: flex;
     align-items: center;
     text-decoration: none;
-    padding: 0.5rem 0.5rem;
-    height: 100%;
-  }
+    padding: 0.5rem 0.5rem; /* Adjust padding as needed */
+}
   
   .nav-links:hover {
-      background: #c721dd;
+      background: #8cd541;
       color: #f4f4f4;
     }
   
@@ -73,6 +84,26 @@
   .menu-icon {
     display: none;
   }
+  .logout-button {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid #1f370e  ;
+    background-color: #1f370e; 
+    color: white; /* Change text color to white for better contrast against the green background */    
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 5px; /* Add rounded corners */
+    text-align: center; /* Center the text */
+    border: none;
+    outline: none;
+    font-family: 'Montserrat', sans-serif; /* To ensure it uses the same font as other elements */
+
+}
+
+.logout-button:hover {
+    background-color: #8cd541; /* A slightly darker shade of green on hover */
+    color: white;
+}
   
   @media screen and (max-width: 960px) {
     .NavbarItems {
@@ -112,8 +143,12 @@
       width: 100%;
       display: table;
     }
-  
-  
+
+    .nav-items-container {
+        display: flex;
+        gap: 20px; /* Add some space between the items */
+    }
+    
     .navbar-logo {
       position: absolute;
       top: 0;

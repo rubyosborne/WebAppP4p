@@ -14,7 +14,17 @@ html, body {
     height: 100%;
     overflow: hidden; /* hide the default body scrollbar */
   }
-  
+ .chartHeading{
+  font-family: 'Montserrat', sans-serif;
+  position: absolute;
+  top: -35px; /* This will position the heading 30px above the graph container */
+  left: 0;
+  width: 100%;
+  text-align: center;
+ }
+
+
+ 
   .background {
     position: fixed;
     top: 0;
@@ -22,11 +32,51 @@ html, body {
     width: 100%;
     height: 100%;
     overflow-y: scroll;
-    background-image: url("../icons/hydroponic-farm-1531761834v1g.jpg");
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url("./plate 2.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #1f370e;
+    
   }
+  .readingRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 5px;
+    padding-left: 70px; /* Adjust this value to your preference */
+}
+
+
+
+
+.reading {
+  flex: 1;  /* Each reading takes up an equal amount of space */
+}
+
+.reading >span {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: white;
+}
+
+/* Remove margin from the last reading in each row */
+.readingRow .reading:last-child {
+    margin-right: 0;
+}
+
+
+.valueBox {
+    background-color: white;
+    padding: 10px 5px; /* Adjust as needed */
+    border-radius: 5px; /* Adjust as needed */
+    margin-top: 5px; /* Adjust as needed */
+    width: 140px; /* Set a specific width */
+    font-family: 'Montserrat', sans-serif;
+}
+
   
   .cover {
     background-color: rgb(255, 255, 255);
@@ -37,33 +87,39 @@ html, body {
     height: 1300px;
     width: auto;
     border-radius: 1em;
-    box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);
+    box-shadow: 0 0.288em 0.850em rgb(156, 156, 156);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
   }
-  .pannel
-  {
-    background-color: grey;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    bottom: 20px;
-    width: 25%;
+  .pannel {
+    background-color: #1f370e;
+    width: 100%;  /* Take the full width */
     border-radius: 1em;
-    box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);
+    /* box-shadow: 0 0.188em 1.550em rgb(156, 156, 156); */ /* Commented out or you can remove this line */
     display: flex;
-    flex-direction: column;
+    flex-direction: row;  /* Display items in a row */
+    flex-wrap: nowrap;  /* Ensure items do not wrap */
     align-items: center;
     justify-content: space-around;
-  }
-  .pannelHeading
-  {
-    position:absolute;
-    top:20px;
-    text-align: center;
-  }
+    padding: 20px;  /* Add some padding for spacing */
+    margin-bottom: 20px;  /* Space between the vitals box and the graphs */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.pannelHeading {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 20px;  /* Add some space below the heading */
+  color: white;
+}
   .LogoutBtn {
     width: 10%;
     height: 3em;
@@ -85,7 +141,7 @@ html, body {
   
   .pHPlot {
     position: absolute;
-    top: 50px;
+    top: 250px;
     left: 30px;
   }
   
@@ -95,7 +151,7 @@ html, body {
   
   .ECPlot {
     position: absolute;
-    top: 450px;
+    top: 650px;
     left: 30px;
   }
   
@@ -105,7 +161,7 @@ html, body {
   
   .tempPlot {
     position: absolute;
-    top: 50px;
+    top: 250px;
     left: 675px;
   }
   
@@ -115,7 +171,7 @@ html, body {
   
   .airTempPlot {
     position: absolute;
-    top: 450px;
+    top: 650px;
     left: 675px;
   }
   
@@ -125,7 +181,7 @@ html, body {
   
   .lightPlot {
     position: absolute;
-    top: 900px;
+    top: 1050px;
     left: 30px;
   }
   
@@ -135,10 +191,31 @@ html, body {
   
   .hummidityPlot {
     position: absolute;
-    top: 900px;
+    top: 1050px;
     left: 675px;
   }
   
   .hummidityHeading {
     text-align:center;
   }
+
+ .graphContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start; /* Ensure items start at the top */
+}
+
+.graphItem {
+    flex: 1 1 calc(33.333% - 10px); /* Assuming a 10px gap between items */
+    margin-bottom: 20px; /* Adjust as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chartHeading {
+    margin-bottom: 10px; /* Adjust as needed */
+    position: relative; /* Reset the position */
+    top: 0; /* Reset the top position */
+}

@@ -1,20 +1,19 @@
 import React from "react";
 import styles from "./main.module.css";
-
-import { useEffect, useState} from "react";
-import {getDocs, 
-    collection,
-    addDoc,
-    deleteDoc,
-    updateDoc,
-    doc,
-    query,
-    onSnapshot,
-    orderBy} from 'firebase/firestore';
-import { db, auth, storage } from "../config/firebase" 
-import {ref, uploadBytes} from 'firebase/storage';
-import {signOut} from 'firebase/auth';
-
+import { useEffect, useState } from "react";
+import {
+  getDocs,
+  collection,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+  doc,
+  query,
+  onSnapshot,
+  orderBy
+} from 'firebase/firestore';
+import { db, auth, storage } from "../config/firebase";
+import { ref, uploadBytes } from 'firebase/storage';
 import {
   CartesianGrid,
   Legend,
@@ -25,208 +24,179 @@ import {
   YAxis,
 } from "recharts";
 
-
-
 export const Main = () => {
-
-  const [pHList, setpH]               = useState([]);
-  const [ECList, setEC]               = useState([]);
-  const [tempList, setTemp]           = useState([]);
-  const [airTempList, setFlow]           = useState([]);
-  const [lightList, setLight]         = useState([]);
+  const [pHList, setpH] = useState([]);
+  const [ECList, setEC] = useState([]);
+  const [tempList, setTemp] = useState([]);
+  const [airTempList, setFlow] = useState([]);
+  const [lightList, setLight] = useState([]);
   const [hummidityList, setHummidity] = useState([]);
 
-  const pHRef   = collection(db, "pH");
-  const ECRef   = collection(db, "EC");
+  const pHRef = collection(db, "pH");
+  const ECRef = collection(db, "EC");
   const tempRef = collection(db, "temp");
   const airTempRef = collection(db, "AirTemp");
   const lightRef = collection(db, "light");
   const hummidityRef = collection(db, "Hummidity");
 
-  const [unsubscribePH, setUnsubscribePH]               = useState(null);
-  const [unsubscribeEC, setUnsubscribeEC]               = useState(null); 
-  const [unsubscribeTemp, setUnsubscribeTemp]           = useState(null);
-  const [unsubscribeairTemp, setUnsubscribeairTemp]     = useState(null);
-  const [unsubscribeLight, setUnsubscribeLight]         = useState(null);
-  const [unsubscribeHummidity, setUnsubscribeHummidity] = useState(null);
-
   useEffect(() => {
     const getVals = async () => {
-      // Read data from database
-      // Set move list
-      try{
-        // Setting up querys
-        // pH 
+      try {
+        // Setting up queries
         const qPH = query(pHRef, orderBy('time'));
-        const unsubscribePH = onSnapshot(qPH, querySnapshot => {
-            // Map results to an array of li elements
+        onSnapshot(qPH, querySnapshot => {
+          const pHData = querySnapshot.docs.map(doc => doc.data());
+          setpH(pHData);
+        });
 
-            const pHData = querySnapshot.docs.map(doc => { 
-              return doc.data()});
-
-            setpH(pHData);
-  
-        })
-
-        // EC
         const qEC = query(ECRef, orderBy('time'));
-        const unsubscribeEC= onSnapshot(qEC, querySnapshot => {
-            // Map results to an array of li elements
+        onSnapshot(qEC, querySnapshot => {
+          const ECData = querySnapshot.docs.map(doc => doc.data());
+          setEC(ECData);
+        });
 
-            const ECData = querySnapshot.docs.map(doc => { 
-              return doc.data()});
-
-            setEC(ECData);
-  
-        })
-
-        // Temp
         const qTemp = query(tempRef, orderBy('time'));
-        const unsubscribeTemp= onSnapshot(qTemp, querySnapshot => {
-            // Map results to an array of li elements
+        onSnapshot(qTemp, querySnapshot => {
+          const tempData = querySnapshot.docs.map(doc => doc.data());
+          setTemp(tempData);
+        });
 
-            const tempData = querySnapshot.docs.map(doc => { 
-              return doc.data()});
-
-            setTemp(tempData);
-  
-        })
-        
         const qairTemp = query(airTempRef, orderBy('time'));
-        const unsubscribeairTemp= onSnapshot(qairTemp, querySnapshot => {
-            // Map results to an array of li elements
+        onSnapshot(qairTemp, querySnapshot => {
+          const airTempData = querySnapshot.docs.map(doc => doc.data());
+          setFlow(airTempData);
+        });
 
-            const airTempData = querySnapshot.docs.map(doc => { 
-              return doc.data()});
-
-            setFlow(airTempData);
-        })
-        
         const qLight = query(lightRef, orderBy('time'));
-        const unsubscribeLight = onSnapshot(qLight, querySnapshot => {
-            // Map results to an array of li elements
+        onSnapshot(qLight, querySnapshot => {
+          const lightData = querySnapshot.docs.map(doc => doc.data());
+          setLight(lightData);
+        });
 
-            const lightData = querySnapshot.docs.map(doc => { 
-              return doc.data()});
-
-            setLight(lightData);
-        })
         const qHummidity = query(hummidityRef, orderBy('time'));
-        const unsubscribeHummidity= onSnapshot(qHummidity, querySnapshot => {
-            // Map results to an array of li elements
-
-            const hummidityData = querySnapshot.docs.map(doc => { 
-              return doc.data()});
-
-            setHummidity(hummidityData);
-        })
-        
-        
-
-        setUnsubscribePH(() => unsubscribePH);
-        setUnsubscribeEC(() =>unsubscribeEC);
-        setUnsubscribeTemp(() => unsubscribeTemp);
-        setUnsubscribeairTemp(() =>unsubscribeairTemp);
-        setUnsubscribeLight(() => unsubscribeLight);
-        setUnsubscribeHummidity(() =>unsubscribeHummidity);
+        onSnapshot(qHummidity, querySnapshot => {
+          const hummidityData = querySnapshot.docs.map(doc => doc.data());
+          setHummidity(hummidityData);
+        });
 
       } catch (err) {
         console.error(err);
-   
-    };
-
-  }
-  getVals();
-  
-
+      };
+    }
+    getVals();
   }, []);
 
-  const logout = async () => {
-    try{
-     
-     await signOut(auth);
-     unsubscribeEC();
-     unsubscribePH();
-     unsubscribeTemp();
-     unsubscribeairTemp();
-     unsubscribeLight();
-     unsubscribeHummidity();
-     console.log("unsubbed");
-    } catch (err) {
-        console.error(err);
-    }
-  };
+  const lastPHValue = pHList.length > 0 ? pHList[pHList.length - 1].value : null;
+const lastECValue = ECList.length > 0 ? ECList[ECList.length - 1].value : null;
+const lastTempValue = tempList.length > 0 ? tempList[tempList.length - 1].value : null;
+const lastAirTempValue = airTempList.length > 0 ? airTempList[airTempList.length - 1].value : null;
+const lastLightValue = lightList.length > 0 ? lightList[lightList.length - 1].value : null;
+const lastHummidityValue = hummidityList.length > 0 ? hummidityList[hummidityList.length - 1].value : null;
 
-  return(
-    <div className={styles.background}>
-         <div className = {styles.LogoutBtn} onClick={logout}>Log Out</div>
+useEffect(() => {
+  document.title = "Eden | My Plants";
+}, []);
 
-         <div className = {styles.cover} >
-          <div className = {styles.pannel}>
-            <h1 className = {styles.pannelHeading}>Welcome to Erva</h1>
-          </div>
-          <div className = {styles.pHPlot}>
-            <h1 className = {styles.pHHeading}>pH</h1>
-           <LineChart  width={600} height={300} data={pHList}>
-           <Line type="monotone" dataKey="value" stroke="#2196F3" strokeWidth={3} />
-           <XAxis dataKey="time" label={{ value: 'time', position: 'insideBottom',offset: -5  }} />
-           <YAxis datakey="value"label={{ value: 'pH', angle: -90, position: 'insideLeft',offset:20 }} />
-           <Tooltip />
-           </LineChart>
-          </div>  
-           <div className = {styles.ECPlot}>
-            <h1 className = {styles.ECHeading}>EC</h1>
-           <LineChart  width={600} height={300} data={ECList}>
-           <Line type="monotone" dataKey="value" stroke="#2196F3" strokeWidth={3} />
-           <XAxis dataKey="time" label={{ value: 'time', position: 'insideBottom',offset: -5  }} />
-           <YAxis datakey="value"label={{ value: 'EC', angle: -90, position: 'insideLeft',offset:20 }} />
-           <Tooltip />
-           </LineChart>
-          </div>
-          <div className = {styles.tempPlot}>
-            <h1 className = {styles.tempHeading}>Tempearture</h1>
-           <LineChart  width={600} height={300} data={tempList}>
-           <Line type="monotone" dataKey="value" stroke="#2196F3" strokeWidth={3} />
-           <XAxis dataKey="time" label={{ value: 'time', position: 'insideBottom',offset: -5  }} />
-           <YAxis datakey="value"label={{ value: 'Temp', angle: -90, position: 'insideLeft',offset:20 }} />
-           <Tooltip />
-           </LineChart>
-          </div>
-          <div className = {styles.airTempPlot}>
-            <h1 className = {styles.airTempHeading}>Air Temperature</h1>
-           <LineChart  width={600} height={300} data={airTempList}>
-           <Line type="monotone" dataKey="value" stroke="#2196F3" strokeWidth={3} />
-           <XAxis dataKey="time" label={{ value: 'time', position: 'insideBottom',offset: -5  }} />
-           <YAxis datakey="value"label={{ value: 'airTemp', angle: -90, position: 'insideLeft',offset:5}} />
-           <Tooltip />
-           </LineChart>
-          </div>
-          <div className = {styles.lightPlot}>
-            <h1 className = {styles.lightHeading}>Light</h1>
-           <LineChart  width={600} height={300} data={lightList}>
-           <Line type="monotone" dataKey="value" stroke="#2196F3" strokeWidth={3} />
-           <XAxis dataKey="time" label={{ value: 'time', position: 'insideBottom',offset: -5  }} />
-           <YAxis datakey="value"label={{ value: 'Light', angle: -90, position: 'insideLeft',offset:5}} />
-           <Tooltip />
-           </LineChart>
-          </div>
-        
-        <div className = {styles.hummidityPlot}>
-            <h1 className = {styles.hummidityHeading}>Hummidity</h1>
-           <LineChart  width={600} height={300} data={hummidityList}>
-           <Line type="monotone" dataKey="value" stroke="#2196F3" strokeWidth={3} />
-           <XAxis dataKey="time" label={{ value: 'time', position: 'insideBottom',offset: -5  }} />
-           <YAxis datakey="value"label={{ value: 'Hummidity', angle: -90, position: 'insideLeft',offset:5}} />
-           <Tooltip />
-           </LineChart>
+return (
+  <div className={styles.background}>
+    <div className={styles.cover}>
+    <div className={styles.pannel}>
+    <h1 className={styles.pannelHeading}>Plant Vitals</h1>
+
+    <div className={styles.readingRow}>
+        <div className={styles.reading}>
+            <span>pH:</span>
+            <div className={styles.valueBox}>{lastPHValue}</div>
         </div>
+        <div className={styles.reading}>
+            <span>EC:</span>
+            <div className={styles.valueBox}>{lastECValue}</div>
+        </div>
+        <div className={styles.reading}>
+            <span>Temperature:</span>
+            <div className={styles.valueBox}>{lastTempValue}</div>
+        </div>
+        <div className={styles.reading}>
+            <span>Air Temperature:</span>
+            <div className={styles.valueBox}>{lastAirTempValue}</div>
+        </div>
+        <div className={styles.reading}>
+            <span>Light:</span>
+            <div className={styles.valueBox}>{lastLightValue}</div>
+        </div>
+        <div className={styles.reading}>
+            <span>Humidity:</span>
+            <div className={styles.valueBox}>{lastHummidityValue}</div>
         </div>
     </div>
-
-        
-  );
+</div>
 
 
+<div className={styles.graphContainer}>
+    <div className={styles.graphItem}>
+        <h1 className={styles.chartHeading}><span className={styles.iconPh}></span> pH</h1>
+        <LineChart width={600} height={300} data={pHList}>
+            <Line type="monotone" dataKey="value" stroke="##8cd541" strokeWidth={3} />
+            <XAxis dataKey="time" label={{ value: 'time', position: 'insideBottom', offset: -5 }} />
+            <YAxis datakey="value" padding={{ top: 20, bottom: 20 }} />
+            <Tooltip />
+        </LineChart>
+    </div>
+
+    <div className={styles.graphItem}>
+        <h1 className={styles.chartHeading}><span className={styles.iconEc}></span> EC</h1>
+        <LineChart width={600} height={300} data={ECList}>
+            <Line type="monotone" dataKey="value" stroke="#8cd541" strokeWidth={3} />
+            <XAxis dataKey="time" label={{ value: 'time', position: 'insideBottom', offset: -5 }} />
+            <YAxis datakey="value" label={{ value: 'EC', angle: -90, position: 'insideLeft', offset: 20 }} />
+            <Tooltip />
+        </LineChart>
+    </div>
+
+    <div className={styles.graphItem}>
+        <h1 className={styles.chartHeading}><span className={styles.iconTemp}></span> Temperature</h1>
+        <LineChart width={600} height={300} data={tempList}>
+            <Line type="monotone" dataKey="value" stroke="#8cd541" strokeWidth={3} />
+            <XAxis dataKey="time" label={{ value: 'time', position: 'insideBottom', offset: -5 }} />
+            <YAxis datakey="value" label={{ value: 'Temp', angle: -90, position: 'insideLeft', offset: 20 }} />
+            <Tooltip />
+        </LineChart>
+    </div>
+
+    <div className={styles.graphItem}>
+        <h1 className={styles.chartHeading}><span className={styles.iconAirTemp}></span> Air Temperature</h1>
+        <LineChart width={600} height={300} data={airTempList}>
+            <Line type="monotone" dataKey="value" stroke="#8cd541" strokeWidth={3} />
+            <XAxis dataKey="time" label={{ value: 'time', position: 'insideBottom', offset: -5 }} />
+            <YAxis datakey="value" label={{ value: 'airTemp', angle: -90, position: 'insideLeft', offset: 5 }} />
+            <Tooltip />
+        </LineChart>
+    </div>
+
+    <div className={styles.graphItem}>
+        <h1 className={styles.chartHeading}><span className={styles.iconLight}></span> Light</h1>
+        <LineChart width={600} height={300} data={lightList}>
+            <Line type="monotone" dataKey="value" stroke="#8cd541" strokeWidth={3} />
+            <XAxis dataKey="time" label={{ value: 'time', position: 'insideBottom', offset: -5 }} />
+            <YAxis datakey="value" label={{ value: 'Light', angle: -90, position: 'insideLeft', offset: 5 }} />
+            <Tooltip />
+        </LineChart>
+    </div>
+
+    <div className={styles.graphItem}>
+        <h1 className={styles.chartHeading}><span className={styles.iconHummidity}></span> Humidity</h1>
+        <LineChart width={600} height={300} data={hummidityList}>
+            <Line type="monotone" dataKey="value" stroke="#8cd541" strokeWidth={3} />
+            <XAxis dataKey="time" label={{ value: 'time', position: 'insideBottom', offset: -5 }} />
+            <YAxis datakey="value" label={{ value: 'Hummidity', angle: -90, position: 'insideLeft', offset: 5 }} />
+            <Tooltip />
+        </LineChart>
+    </div>
+</div>
+
+    </div>
+  </div>
+  )
 };
 export default Main;
 

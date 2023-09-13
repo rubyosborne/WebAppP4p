@@ -1,7 +1,8 @@
 * {
     margin: 0;
     box-sizing: border-box;
-    font-family: "CustomFont";
+    font-family: 'Montserrat', sans-serif; /* Set the default font to Montserrat */
+    color: white; /* Set the default text color to white */
 }
 
 @font-face {
@@ -19,27 +20,22 @@
     align-items: center;
     font-size: 0.75em;
 }
-.background{
-    position: fixed;
+.background {
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    
-    background-image: url("../icons/hydroponic-farm-1531761834v1g.jpg");
-    position: cover;
     background-position: center;
     background-repeat: no-repeat;
-
 }
 
 .cover {
-    background-color: grey;
+    background-color: #000002;
     width: 70%;
     height: 50%;
     position: relative;
     border-radius: 1em;
-    box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,7 +44,27 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 3; /* Above the overlay */
 }
+.logoContainer {
+    position: absolute;
+    top: 15px;
+    left: 20px; /* Move a bit more to the right */
+    display: flex;
+    align-items: center;
+    z-index: 4; /* Ensure it's above other elements */
+}
+
+.logoIcon {
+    font-size: 28px; /* Increase the size of the icon */
+    margin-left: 8px; /* Space between text and icon */
+}
+
+.logoText {
+    font-size: 30px; /* Increase the size of the text */
+    font-weight: bold;
+}
+
 
 .altLogin {
     width: 80%;
@@ -56,23 +72,53 @@
     display: flex;
     justify-content: space-around;
 }
+h1, h2, h3, h4, h5, h6, p, input, button, div {
+    font-family: 'Montserrat', sans-serif !important;
+}
+
 
 .altLogin div {
     width: 47.5%;
     height: 90%;
     border-radius: 0.25em;
-    background-color: black;
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;
 }
 
+.videoBackground {
+    z-index: 0; 
+}
+
+.background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 2; 
+}
+
 .Google {
     background-image: url("../icons/google.png");
+    background-color: #1f370e; /* Blue background color */
     transition: 0.5s;
+    border: none; /* Remove any border */
+    padding: 10px 20px; /* Add some padding */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Hand cursor on hover */
 }
-.Google:hover{ transform: scale(1.25);}
+
+.Google:hover {
+    transform: scale(1.25);
+}
+
+.Google:hover {
+    transform: scale(1.25);
+}
 
 input {
     border: none;
@@ -82,16 +128,15 @@ input {
     text-align: center;
     padding: 2em;
     font-size: 0.75em;
-}
-
-input:focus {
-    outline-color: rgb(32, 177, 255);
+    outline: none; /* Remove the glow */
+    box-shadow: none; /* In case there's a box-shadow causing the glow */
+    color: black; /* Set input text color to black for readability */
 }
 
 .LoginBtn {
     width: 40%;
     height: 3em;
-    background-color: rgb(32, 177, 255);
+    background-color: #8cd541;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -100,7 +145,9 @@ input:focus {
     cursor: pointer;
 }
 
-.LoginBtn:hover { transform: scale(1.25);}
+.LoginBtn:hover {
+    transform: scale(1.25);
+}
 
 .text {
     position: relative;
@@ -112,7 +159,6 @@ input:focus {
     transform: scale(0);
 }
 
-
 .blue {
     width: 100%;
     height: 100%;
@@ -121,7 +167,6 @@ input:focus {
     background-repeat: no-repeat;
     background-image: url('../icons/google.png');
 }
-
 
 /* -------------------- DESKTOP OPTIMIZATION -------------------- */
 @media only screen and (min-device-width: 64em) {

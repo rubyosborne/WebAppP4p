@@ -1,44 +1,282 @@
-.aboutus-container {
-    max-width: 1200px;
+.contact-section-comp {
+    width: 90%;
     margin: 0 auto;
-    padding: 20px;
-}
-
-.aboutus-header {
+  }
+  
+  .about-us {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background-color: #3f51b5;  /* This is the default AppBar color from Material-UI */
-    padding: 10px 0;
-}
-
-.aboutus-header h2 {
-    flex: 1;
-    text-align: center;
-    color: white;
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+  }
+  .about-us h2 {
+    font-size: 3rem;
+  }
+  .about-us .sub-title {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+  }
+  .bigTitle{
+    font-family: 'Montserrat', sans-serif;
+  }
+  .smallTitle{
+    font-family: 'Montserrat', sans-serif;
+  }
+  .about-us p {
+    color: var(--light-gray);
+    font-size: 1.2rem;
+    line-height: 2rem;
+  }
+  .section-one-content h3,
+  .section-two-content h3,
+  .section-five h3,
+  .section-three h3,
+  .section-four h3 {
     font-size: 2rem;
-}
-
-.aboutus-photos {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  
+  .section-one,
+  .section-two,
+  .section-three {
     display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.aboutus-photos img {
-    margin: 0 10px;
-    width: 150px;
-    height: 150px;
+    flex-direction: column;
+  }
+  .section-four,
+  .section-five {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .sub-title {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+    color: #8cd541;
+  }
+  
+  .aboutus-img-grid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .aboutus-img-grid img {
+    width: 100%;
+    min-height: 100%;
+    height: 16rem;
+    max-height: 100%;
     object-fit: cover;
-    border-radius: 50%;
+  }
+  body, html {
+    overflow-y: auto;
 }
 
-.aboutus-description h2 {
-    text-align: center;
-    margin-top: 30px;
+  
+  .section-one,
+  .section-two {
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .section-one-content {
+    position: relative;
+    padding: 4rem;
+    z-index: 999;
+    background-image: url("./plate.png");
+  }
+  .section-one-content2 {
+    position: relative;
+    padding: 4rem;
+    z-index: 999;
+    background-image: url("./plate 2.png");
+  }
+
+  .section-one-content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.7); /* Adjusted to a more opaque black */
+    z-index: -1;
 }
 
-.aboutus-description p {
-    text-align: center;
-    margin-top: 20px;
+
+  .section-one-content h2,
+  .section-one-content h3,
+  .section-one-content p {
+    position: relative;
+    z-index: 999;
+  }
+  
+
+  .section-one::after,
+  .section-two::after {
+    content: "";
+    background-color: var(--pizza-red);
+    opacity: 0.3;
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    z-index: 2;
+  }
+  
+  .section-two-content {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    text-align: left;
+    margin: 0 auto;
+    
+  }
+
+  /* Section 2 */
+  .section-two {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url("./plate 2.png");
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+  .section-two::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.5); /* Adjusted to a more opaque black */
+    z-index: -1;
 }
+
+.section-two {
+    display: flex;
+    flex-direction: column;
+}
+.about-us h2,
+.about-us .sub-title,
+.about-us p,
+.section-one-content h2,
+.section-one-content h3,
+.section-one-content p,
+.section-two-content h2,
+.section-two-content h3,
+.section-two-content p {
+    color: #ffffff;
+}
+.about-us .sub-title {
+    color: #8cd541;
+}
+
+.montserrat-text {
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.section-one-content .sub-title {
+    font-family: 'Nothing You Could Do', cursive;
+}
+
+.hydrofont{
+    font-family: 'Nothing You Could Do', cursive;
+    font-size: 1.5rem;
+}
+
+
+  .section-three-content {
+    margin: 0 auto;
+  }
+
+  
+  
+  .section-three-img-grid {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 2rem;
+  }
+  .section-three-img-grid img {
+    min-width: 10rem;
+    width: 100%;
+    min-height: 100%;
+    height: 20rem;
+    max-height: 100%;
+    border-radius: 15px;
+  }
+  
+  .img-glass {
+    width: 100%;
+    height: 20rem;
+    bottom: 0;
+    background-image: url("./logo.png");
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+    opacity: 0.7;
+  }
+  
+  .section-four img,
+  .section-five img {
+    width: 100%;
+    min-height: 100%;
+    height: 20rem;
+    max-height: 100%;
+    opacity: 0.8;
+    object-fit: cover;
+  }
+  .section-four-content,
+  .section-five-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .section-two-content,
+  .section-three-content,
+  .section-four-content,
+  .section-five-content {
+    padding: 1rem;
+  }
+  
+  /***************  RESPONSIVE ***************/
+  
+  @media screen and (min-width: 700px) {
+    .section-two-content,
+    .section-three-content,
+    .section-four-content,
+    .section-five-content {
+      padding: 2rem;
+    }
+    .aboutus-img-grid {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+  
+  @media screen and (min-width: 1025px) {
+    .section-two-content,
+    .section-three-content {
+      width: 70%;
+    }
+    .section-three-img-grid {
+      flex-direction: row;
+    }
+    .section-four,
+    .section-five {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  /***************  RESPONSIVE ***************/
+  @media screen and (min-width: 1110px) {
+    .section-two-content,
+    .section-three-content {
+      width: 50%;
+    }
+  }
